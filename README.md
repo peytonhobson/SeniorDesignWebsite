@@ -1,21 +1,7 @@
-# SB Clean Blog Angular
-
-[![Build Status](https://travis-ci.org/StartBootstrap/sb-clean-blog-angular.svg?branch=master)](https://travis-ci.org/StartBootstrap/sb-clean-blog-angular)
-
-SB Clean Blog Angular is a free and open-sourced Bootstrap themed Angular 9 starter project.
-
-It shares the same project structure and subset of tooling from our professional offering,
-[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/),
-so much of the [SB Admin Pro Angular Documentation](https://docs.startbootstrap.com/sb-admin-pro-angular/quickstart) is applicable.
+# SeniorDesignWebsite
 
 In particular the documentation for [Structure](https://docs.startbootstrap.com/sb-admin-pro-angular/structure-root-level),
 and the documentation for [SBPro Schematics](https://docs.startbootstrap.com/sb-admin-pro-angular/development-general#sb-pro-schematics)
-
-SB Clean Blog Angular comes with a base implementation of navigation and layouts.
-
-For professionally designed components (including an advanced SideNav), 100% code coverage,
-starter cypress tests and more, please consider our professional offering:
-[SB Admin Pro Angular](https://themes.startbootstrap.com/sb-admin-pro-angular/)
 
 ## Links
 
@@ -31,8 +17,8 @@ Built with Node.js, Typescript, Fastify, and TypeORM
 ## Quick Start
 
 ```bash
-git clone git@github.com:startbootstrap/sb-clean-blog-angular.git
-cd sb-clean-blog-angular
+git clone git@github.com:peytonhobson/SeniorDesignProject.git
+cd SeniorDesignProject
 npm install
 npm start
 ```
@@ -46,17 +32,6 @@ By default angular runs on port 4200. To change this port you can run:
 # but you can use any port you'd like
 export PORT=4205 && npm start
 ```
-
-### Why do I not see any posts?
-
-Be sure you have [sb-clean-blog-node](https://github.com/StartBootstrap/sb-clean-blog-node) running.
-
-### How do I create/update/delete posts?
-
-Navigate to <http://localhost:4200/auth/login> 
-
-Use the password you set in the [sb-clean-blog-node](https://github.com/StartBootstrap/sb-clean-blog-node)
-.env file for: `DB_ROOT_USER_PASSWORD`
 
 ## Tests
 
