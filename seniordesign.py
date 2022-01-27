@@ -1,4 +1,4 @@
-def take_off_speed():
+def take_off_distance():
     # get inputs
     wt = get_weight()
     oat = get_temp()
@@ -162,7 +162,7 @@ def get_runway_dir():
 if __name__ == '__main__':
     while True:
         choice = input('What are you trying to find?\n(t=take-off distance,s=take-off speed,a=accel-stop distance,\nr=landing reference speed,d=landing distance,g=ground run)\ntype q to quit: ')
-        if choice == 's':
-            take_off_speed()
+        if choice == 't':
+            take_off_distance()
         if choice == 'q':
             break
