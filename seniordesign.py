@@ -44,7 +44,11 @@ def take_off_distance():
     to_ground_run = gr3*100
     print(f'Take off ground run is {to_ground_run} meters.')
 
-
+def take_off_speed():
+    wt = get_weight()
+    speed_kmh = 211.74 + .0210875 * (wt - 4800)
+    speed_kts = speed_kmh * .5399568
+    print(f'Take-off speed is {speed_kts} knots ({speed_kmh}km/h).')
 
 
 def get_weight():
@@ -164,5 +168,7 @@ if __name__ == '__main__':
         choice = input('What are you trying to find?\n(t=take-off distance,s=take-off speed,a=accel-stop distance,\nr=landing reference speed,d=landing distance,g=ground run)\ntype q to quit: ')
         if choice == 't':
             take_off_distance()
+        if choice == 's':
+            take_off_speed()
         if choice == 'q':
             break
