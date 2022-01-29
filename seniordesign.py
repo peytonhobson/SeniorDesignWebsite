@@ -74,6 +74,15 @@ def accel_stop_distance():
         else:
             print('Please input valid character (c or g).')
 
+def landing_ref_speed():
+    import scipy.interpolate
+    wt = get_weight()
+    x = [3600,4000,4600,5000]
+    y = [163.5,172.5,184.9,193.0]
+    interp = scipy.interpolate.interp1d(x, y)
+    speed_kmh = interp(wt)
+    speed_ms = speed_kmh / 3.6
+    print(f'The touch-down speed is {speed_kmh} km/hr ({speed_ms} m/s).')
 
 def get_weight():
     while True:
@@ -196,5 +205,7 @@ if __name__ == '__main__':
             take_off_speed()
         if choice == 'a':
             accel_stop_distance()
+        if choice == 'r':
+            landing_ref_speed()
         if choice == 'q':
             break
