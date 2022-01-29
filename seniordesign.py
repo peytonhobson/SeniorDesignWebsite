@@ -50,6 +50,30 @@ def take_off_speed():
     speed_kts = speed_kmh * .5399568
     print(f'Take-off speed is {speed_kts} knots ({speed_kmh}km/h).')
 
+def accel_stop_distance():
+    import scipy.interpolate
+    wt = get_weight()
+    while True:
+        choice = input('Is the runway concrete(c) or grassy(g)? ')
+        if choice == 'c':
+            x = [4183,4542,4984,5611]
+            y = [1059,1200,1400,1715]
+            interp = scipy.interpolate.interp1d(x, y)
+            dist_m = interp(wt)
+            dist_ft = dist_m * 3.2808399
+            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).')
+            break
+        elif choice == 'g':
+            x = [4199,4680,5297,5605]
+            y = [1154,1400,1800,1820]
+            interp = scipy.interpolate.interp1d(x, y)
+            dist_m = interp(wt)
+            dist_ft = dist_m * 3.2808399
+            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).')
+            break
+        else:
+            print('Please input valid character (c or g).')
+
 
 def get_weight():
     while True:
@@ -170,5 +194,7 @@ if __name__ == '__main__':
             take_off_distance()
         if choice == 's':
             take_off_speed()
+        if choice == 'a':
+            accel_stop_distance()
         if choice == 'q':
             break
