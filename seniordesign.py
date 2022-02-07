@@ -18,7 +18,6 @@ def take_off_distance():
     zinterp = interp2d(xdatac, ydatac, zdatam, kind='linear')
     gr0 = zinterp(oat,pa)
     num_gr0 = gr0.tolist()[0]
-    print(num_gr0)
 
     # equation 2
     xdatac2 = np.array([0,5.07,7.46,10])
@@ -27,8 +26,7 @@ def take_off_distance():
     zinterp2 = interp2d(xdatac2, ydatac2, zdatam2, kind='linear')
     gr1 = zinterp2(num_gr0,wt)
     num_gr1 = gr1.tolist()[0]
-    print(num_gr1)
-
+    
     # equation 3
     import math
     head_wind = windmag * math.cos((winddir-rwdir)*math.pi/180)
@@ -38,8 +36,7 @@ def take_off_distance():
     zinterp3 = interp2d(xdatac3, ydatac3, zdatam3, kind='linear')
     gr2 = zinterp3(num_gr1,head_wind)
     num_gr2 = gr2.tolist()[0]
-    print(num_gr2)
-
+    
     # equation 4
     xdatac4 = np.array([.04,.08,.12,.16])
     ydatac4 = np.array([0,5.05,7.43,9.9,12.55])
@@ -49,13 +46,15 @@ def take_off_distance():
     num_gr3 = gr3.tolist()[0]
 
     to_ground_run = round(num_gr3*100)
-    print(f'Take off ground run is {to_ground_run} meters.')
+    print(f'Take off ground run is {to_ground_run} meters.\n')
 
 def take_off_speed():
     wt = get_weight()
     speed_kmh = 211.74 + .0210875 * (wt - 4800)
     speed_kts = speed_kmh * .5399568
-    print(f'Take-off speed is {speed_kts} knots ({speed_kmh}km/h).')
+    speed_kmh = round(speed_kmh)
+    speed_kts = round(speed_kts)
+    print(f'Take-off speed is {speed_kts} knots ({speed_kmh}km/h).\n')
 
 def accel_stop_distance():
     import scipy.interpolate
@@ -67,16 +66,22 @@ def accel_stop_distance():
             y = [1059,1200,1400,1715]
             interp = scipy.interpolate.interp1d(x, y)
             dist_m = interp(wt)
+            dist_m = dist_m.tolist()
             dist_ft = dist_m * 3.2808399
-            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).')
+            dist_m = round(dist_m)
+            dist_ft = round(dist_ft)
+            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).\n')
             break
         elif choice == 'g':
             x = [4199,4680,5297,5605]
             y = [1154,1400,1800,1820]
             interp = scipy.interpolate.interp1d(x, y)
             dist_m = interp(wt)
+            dist_m = dist_m.tolist()
             dist_ft = dist_m * 3.2808399
-            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).')
+            dist_m = round(dist_m)
+            dist_ft = round(dist_ft)
+            print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).\n')
             break
         else:
             print('Please input valid character (c or g).')
@@ -88,8 +93,11 @@ def landing_ref_speed():
     y = [163.5,172.5,184.9,193.0]
     interp = scipy.interpolate.interp1d(x, y)
     speed_kmh = interp(wt)
+    speed_kmh = speed_kmh.tolist()
     speed_ms = speed_kmh / 3.6
-    print(f'The touch-down speed is {speed_kmh} km/hr ({speed_ms} m/s).')
+    speed_kmh = round(speed_kmh)
+    speed_ms = round(speed_ms)
+    print(f'The touch-down speed is {speed_kmh} km/hr ({speed_ms} m/s).\n')
 
 def landing_distance():
     # get inputs
@@ -136,7 +144,7 @@ def landing_distance():
 
     landing_dist_ft = round(gr3.tolist()[0]*1000)
     landing_dist_m = round(landing_dist_ft *.3048)
-    print(f'Landing distance is {landing_dist_m} meters ({landing_dist_ft} feet).')
+    print(f'Landing distance is {landing_dist_m} meters ({landing_dist_ft} feet).\n')
 
 def get_weight():
     while True:
@@ -252,16 +260,19 @@ def get_runway_dir():
 
 if __name__ == '__main__':
     while True:
-        choice = input('What are you trying to find?\n(t=take-off distance,s=take-off speed,a=accel-stop distance,\nr=landing reference speed,d=landing distance,g=ground run)\ntype q to quit: ')
+        choice = input('What are you trying to find?\n(t=take-off distance,s=take-off speed,a=accel-stop distance,\nr=landing reference speed,d=landing distance,q=quit)\nEnter character: ')
         if choice == 't':
             take_off_distance()
-        if choice == 's':
+        elif choice == 's':
             take_off_speed()
-        if choice == 'a':
+        elif choice == 'a':
             accel_stop_distance()
-        if choice == 'r':
+        elif choice == 'r':
             landing_ref_speed()
-        if choice == 'd':
+        elif choice == 'd':
             landing_distance()
-        if choice == 'q':
+        elif choice == 'q':
+            print('Quit successful.')
             break
+        else:
+            print('Invalid character.\n')
