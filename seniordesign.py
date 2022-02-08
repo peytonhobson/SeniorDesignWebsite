@@ -20,9 +20,9 @@ def take_off_distance():
     num_gr0 = gr0.tolist()[0]
 
     # equation 2
-    xdatac2 = np.array([0,5.07,7.46,10])
+    xdatac2 = np.array([0,5.07,7.46,10,11.81])
     ydatac2 = np.array([3800,4400,5000,5600])
-    zdatam2 = np.array([[-.18,3.64,5.44,7.26], [0,5.07,7.46,10], [.04,6.59,9.68,12.92], [-.34,8.59,12.8,17.1]])
+    zdatam2 = np.array([[-.18,3.64,5.44,7.26,8.56], [0,5.07,7.46,10,11.81], [.04,6.59,9.68,12.92,15.23], [-.34,8.59,12.8,17.1,20.16]])
     zinterp2 = interp2d(xdatac2, ydatac2, zdatam2, kind='linear')
     gr1 = zinterp2(num_gr0,wt)
     num_gr1 = gr1.tolist()[0]
@@ -30,17 +30,17 @@ def take_off_distance():
     # equation 3
     import math
     head_wind = windmag * math.cos((winddir-rwdir)*math.pi/180)
-    xdatac3 = np.array([0,5.07,7.57,10,12.53,15.01])
+    xdatac3 = np.array([0,5.07,7.57,10,12.53,15.01,20.16])
     ydatac3 = np.array([-10,0,10])
-    zdatam3 = np.array([[-.53,7.2,11.01,14.8,18.53,22],[0,5.07,7.57,10,12.53,15.01],[-.06,3.41,5.12,6.75,8.53,10.21]])
+    zdatam3 = np.array([[-.53,7.2,11.01,14.8,18.53,22,29.21],[0,5.07,7.57,10,12.53,15.01,20.16],[-.06,3.41,5.12,6.75,8.53,10.21,13.70]])
     zinterp3 = interp2d(xdatac3, ydatac3, zdatam3, kind='linear')
     gr2 = zinterp3(num_gr1,head_wind)
     num_gr2 = gr2.tolist()[0]
     
     # equation 4
     xdatac4 = np.array([.04,.08,.12,.16])
-    ydatac4 = np.array([0,5.05,7.43,9.9,12.55])
-    zdatam4 = np.array([[0,-.36,-.66,-.55],[5.05,5.9,7.08,9],[7.43,8.85,10.73,13.5],[9.9,11.85,14.2,18],[12.55,14.78,17.9,22.55]])
+    ydatac4 = np.array([0,5.05,7.43,9.9,12.55,29.21])
+    zdatam4 = np.array([[0,-.36,-.66,-.55],[5.05,5.9,7.08,9],[7.43,8.85,10.73,13.5],[9.9,11.85,14.2,18],[12.55,14.78,17.9,22.55],[29.21,33.2,41.16,51.15]])
     zinterp4 = interp2d(xdatac4, ydatac4, zdatam4, kind='linear')
     gr3 = zinterp4(rfc,num_gr2)
     num_gr3 = gr3.tolist()[0]
@@ -62,8 +62,8 @@ def accel_stop_distance():
     while True:
         choice = input('Is the runway concrete(c) or grassy(g)? ')
         if choice == 'c':
-            x = [4183,4542,4984,5611]
-            y = [1059,1200,1400,1715]
+            x = [3800,4183,4542,4984,5611]
+            y = [845.63,1059,1200,1400,1715]
             interp = scipy.interpolate.interp1d(x, y)
             dist_m = interp(wt)
             dist_m = dist_m.tolist()
@@ -73,8 +73,8 @@ def accel_stop_distance():
             print(f'Accel-stop distance is {dist_m} meters ({dist_ft} ft).\n')
             break
         elif choice == 'g':
-            x = [4199,4680,5297,5605]
-            y = [1154,1400,1800,1820]
+            x = [3800,4199,4680,5297,5605]
+            y = [949.94,1154,1400,1800,1820]
             interp = scipy.interpolate.interp1d(x, y)
             dist_m = interp(wt)
             dist_m = dist_m.tolist()
@@ -89,8 +89,8 @@ def accel_stop_distance():
 def landing_ref_speed():
     import scipy.interpolate
     wt = get_weight()
-    x = [3600,4000,4600,5000]
-    y = [163.5,172.5,184.9,193.0]
+    x = [3600,4000,4600,5000,5600]
+    y = [163.5,172.5,184.9,193.0,205.15]
     interp = scipy.interpolate.interp1d(x, y)
     speed_kmh = interp(wt)
     speed_kmh = speed_kmh.tolist()
@@ -137,8 +137,8 @@ def landing_distance():
 
     # equation 4
     xdatac4 = np.array([.1,.2,.3,.4])
-    ydatac4 = np.array([0,5.28,7.54,10,12.52])
-    zdatam4 = np.array([[20.16,31.69,42.70,53.06],[9.74,5.28,3.33,2.52],[14.78,7.54,5.04,3.74],[19.80,10,6.67,5.10],[24.67,12.52,8.38,6.26]])
+    ydatac4 = np.array([0,5.28,7.54,10,12.52,19.27])
+    zdatam4 = np.array([[-2.03,0,-.67,-.33],[9.74,5.28,3.33,2.52],[14.78,7.54,5.04,3.74],[19.80,10,6.67,5.10],[24.67,12.52,8.38,6.26],[37.71,19.27,12.96,9.37]])
     zinterp4 = interp2d(xdatac4, ydatac4, zdatam4, kind='linear')
     gr3 = zinterp4(bfc,gr2.tolist()[0])
 
@@ -224,8 +224,8 @@ def get_wind_mag():
         except:
             print('Error: input must be number. Try again.')
         else:
-            if windmag not in range(0,21):
-                print('Wind speed must be between 0 and 20.')
+            if windmag not in range(0,11):
+                print('Wind speed must be between 0 and 10.')
             else:
                 break
     return windmag
